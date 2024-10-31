@@ -1,0 +1,82 @@
+﻿@page
+@model App.Web.Areas.Identity.Pages.Account.TicketModel
+@{
+    ViewData["Title"] = "Tickets";
+    int i = 1;
+}
+<div class="d-flex justify-content-between align-items-center">
+    <h2>Ticket List</h2>
+    <a href="~/Identity/Account/AddTicket" class="btn btn-outline-info">
+        New Ticket
+    </a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Number
+            </th>
+            <th>
+                Origin
+            </th>
+            <th>
+                Destination
+            </th>
+            <th>
+                Seat Number
+            </th>
+            <th>
+                Departure Date
+            </th>
+            <th>
+                Return Date
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Passenger Name
+            </th>
+            <th>
+                Operation
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Tickets)
+        {
+            <tr>
+                <td>
+                    @i
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DestinationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeatNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartureDate.ToString("yyyy-MM-dd"))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDate.HasValue ? item.ReturnDate.Value.ToString("yyyy-MM-dd") : "N/A")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price.ToString("C2"))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PassengerName)
+                </td>
+                <td>
+                    <a asp-action="" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>

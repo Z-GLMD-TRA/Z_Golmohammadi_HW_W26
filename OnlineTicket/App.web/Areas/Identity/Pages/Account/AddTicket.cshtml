@@ -1,0 +1,60 @@
+﻿@page
+@model App.Web.Areas.Identity.Pages.Account.NewTicketModel
+@{
+    ViewData["Title"] = "Add New Ticket";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div>
+        <label asp-for="Input.Ticket.OriginName"></label>
+        <input asp-for="Input.Ticket.OriginName" />
+        <span asp-validation-for="Input.Ticket.OriginName"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Ticket.DestinationName"></label>
+        <input asp-for="Input.Ticket.DestinationName" />
+        <span asp-validation-for="Input.Ticket.DestinationName"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Ticket.CategoryId"></label>
+        <select asp-for="Input.Ticket.CategoryId" asp-items="@(new SelectList(Model.Input.Categories, "Id", "Name"))"></select>
+        <span asp-validation-for="Input.Ticket.CategoryId"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.Ticket.SeatNumber"></label>
+        <input asp-for="Input.Ticket.SeatNumber" class="form-control" type="number" min="1" />
+        <span asp-validation-for="Input.Ticket.SeatNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.Ticket.DepartureDate"></label>
+        <input asp-for="Input.Ticket.DepartureDate" class="form-control" type="date" />
+        <span asp-validation-for="Input.Ticket.DepartureDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.Ticket.ReturnDate"></label>
+        <input asp-for="Input.Ticket.ReturnDate" class="form-control" type="date" />
+        <span asp-validation-for="Input.Ticket.ReturnDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.Ticket.Price"></label>
+        <input asp-for="Input.Ticket.Price" class="form-control" type="number" step="0.01" min="0" />
+        <span asp-validation-for="Input.Ticket.Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.Ticket.PassengerName"></label>
+        <input asp-for="Input.Ticket.PassengerName" class="form-control" />
+        <span asp-validation-for="Input.Ticket.PassengerName" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Ticket</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

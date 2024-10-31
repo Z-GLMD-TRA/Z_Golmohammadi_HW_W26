@@ -2,10 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
 using System.Text;
 using DataTransferObject.DTOClasses;
-using Infrastructure.Migrations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -17,17 +15,16 @@ using Service.ServiceInterfaces;
 
 namespace App.Web.Areas.Identity.Pages.Account
 {
-    public class NewCategoryModel : PageModel
+    public class TicketModel : PageModel
     {
-        private readonly ICategoryService _categoryService;
-        private readonly ILogger<NewCategoryModel> _logger;
-        private readonly UserManager<User> _userManager;
+        private readonly ITicketService _ticketService;
 
-        public NewCategoryModel(ICategoryService categoryService, ILogger<NewCategoryModel> logger,UserManager<User> userManager)
+        private readonly ILogger<TicketModel> _logger;
+
+        public TicketModel(ITicketService ticketService, ILogger<TicketModel> logger)
         {
             _logger = logger;
-            _categoryService = categoryService;
-            _userManager = userManager;
+            _ticketService = ticketService; 
 
         }
 
@@ -36,7 +33,7 @@ namespace App.Web.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
-        public CategoryDTO NewCategory { get; set; } = new CategoryDTO();
+        public List<TicketDTO> Tickets { get; set; } = new List<TicketDTO>();
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -62,42 +59,15 @@ namespace App.Web.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
+            Tickets = await _ticketService.GetAllTickets();
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+
+        public IActionResult OnPost()
         {
-            if (ModelState.IsValid)
-            {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var userName = User.FindFirstValue(ClaimTypes.Name);
-                User user = await _userManager.FindByNameAsync(userName) ?? await _userManager.FindByIdAsync(userId);
-                NewCategory.CreatorId = user.Id;
-                NewCategory.EditorId = user.Id;
-                NewCategory.CreatedAt = DateTime.UtcNow;
-                NewCategory.EditedAt = DateTime.UtcNow;
-
-                var result = await _categoryService.CreateCategory(NewCategory);
-                if (result)
-                {
-                    _logger.LogInformation("Category created successfully.");
-                    return RedirectToPage("CategoryList");
-                }
-                else
-                {
-                    // Log the failure and add a model error
-                    _logger.LogWarning("Category creation failed.");
-                    ModelState.AddModelError(string.Empty, "Unable to create category. Please try again.");
-                }
-            }
-            else
-            {
-                _logger.LogWarning("Model state is invalid.");
-            }
-
-            // Return the page with the current model state to show validation errors
             return Page();
         }
     }

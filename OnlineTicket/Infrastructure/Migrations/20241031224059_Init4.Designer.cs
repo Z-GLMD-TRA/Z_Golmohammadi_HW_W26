@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineTicketDbContext))]
-    partial class OnlineTicketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241031224059_Init4")]
+    partial class Init4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,7 +311,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("BuyDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 10, 31, 22, 55, 49, 769, DateTimeKind.Utc).AddTicks(3222));
+                        .HasDefaultValue(new DateTime(2024, 10, 31, 22, 40, 57, 775, DateTimeKind.Utc).AddTicks(8129));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -332,6 +335,10 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("EditorId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("OriginName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -354,7 +361,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)")
-                        .HasDefaultValue("62910");
+                        .HasDefaultValue("85316");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");

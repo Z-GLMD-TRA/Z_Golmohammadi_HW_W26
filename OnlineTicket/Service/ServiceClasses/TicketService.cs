@@ -33,6 +33,7 @@ namespace Service.ServiceClasses
         {
             var entity = TranslateToEntity(ticketDTO);
             var result = await _repository.CreateDataAsync(entity);
+
             return result != null;
 
         }
