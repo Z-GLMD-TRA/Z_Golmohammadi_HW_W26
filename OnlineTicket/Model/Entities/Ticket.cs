@@ -9,6 +9,8 @@ namespace Model.Entities
     public Guid UserId { get; set; }
     public int SeatNumber { get; set; }
 
+    public Category Category { get; set; }
+    public int CategoryId { get; set; }
     public static string NewTicketNumber()
     {
         var random = new Random();

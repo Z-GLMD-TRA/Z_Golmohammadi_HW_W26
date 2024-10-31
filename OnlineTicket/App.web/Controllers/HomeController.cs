@@ -1,21 +1,32 @@
 using App.web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+using Service.ServiceInterfaces;
 
 namespace App.web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserService _userService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserService userService)
         {
             _logger = logger;
+            _userService = userService;
         }
 
-        public IActionResult Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    var users = await _userService.GetAllUsers();
+        //    return View(users);
+        //}
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var users = await _userService.GetAllUsers();
+            return View(users);
         }
 
         public IActionResult Privacy()
