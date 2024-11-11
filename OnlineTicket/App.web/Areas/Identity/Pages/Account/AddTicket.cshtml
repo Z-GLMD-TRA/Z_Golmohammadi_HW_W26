@@ -6,53 +6,50 @@
 <h2>@ViewData["Title"]</h2>
 
 <form method="post">
-    <div>
+    <div class="form-group">
+        <div class="form-group">
         <label asp-for="Input.Ticket.OriginName"></label>
-        <input asp-for="Input.Ticket.OriginName" />
+            <input class="form-control" asp-for="Input.Ticket.OriginName" />
         <span asp-validation-for="Input.Ticket.OriginName"></span>
     </div>
-    <div>
+        <div class="form-group">
         <label asp-for="Input.Ticket.DestinationName"></label>
-        <input asp-for="Input.Ticket.DestinationName" />
+            <input class="form-control" asp-for="Input.Ticket.DestinationName" />
         <span asp-validation-for="Input.Ticket.DestinationName"></span>
     </div>
-    <div>
+        <div class="form-group">
         <label asp-for="Input.Ticket.CategoryId"></label>
-        <select asp-for="Input.Ticket.CategoryId" asp-items="@(new SelectList(Model.Input.Categories, "Id", "Name"))"></select>
+            <select asp-for="Input.Ticket.CategoryId" class="form-control" asp-items="@(new SelectList(Model.Input.Categories, "Id", "Name"))"></select>
         <span asp-validation-for="Input.Ticket.CategoryId"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Input.Ticket.SeatNumber"></label>
-        <input asp-for="Input.Ticket.SeatNumber" class="form-control" type="number" min="1" />
-        <span asp-validation-for="Input.Ticket.SeatNumber" class="text-danger"></span>
+        <label asp-for="Input.Ticket.TicketCount"></label>
+        <input asp-for="Input.Ticket.TicketCount" class="form-control" type="number" min="1"/>
+        <span asp-validation-for="Input.Ticket.TicketCount" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Input.Ticket.DepartureDate"></label>
-        <input asp-for="Input.Ticket.DepartureDate" class="form-control" type="date" />
+        <input asp-for="Input.Ticket.DepartureDate" class="form-control" type="date"/>
         <span asp-validation-for="Input.Ticket.DepartureDate" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Input.Ticket.ReturnDate"></label>
-        <input asp-for="Input.Ticket.ReturnDate" class="form-control" type="date" />
-        <span asp-validation-for="Input.Ticket.ReturnDate" class="text-danger"></span>
-    </div>
 
     <div class="form-group">
         <label asp-for="Input.Ticket.Price"></label>
-        <input asp-for="Input.Ticket.Price" class="form-control" type="number" step="0.01" min="0" />
+        <input asp-for="Input.Ticket.Price" class="form-control" type="number" step="0.01" min="0"/>
         <span asp-validation-for="Input.Ticket.Price" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    @*     <div class="form-group">
         <label asp-for="Input.Ticket.PassengerName"></label>
         <input asp-for="Input.Ticket.PassengerName" class="form-control" />
         <span asp-validation-for="Input.Ticket.PassengerName" class="text-danger"></span>
-    </div>
+    </div> *@
 
     <button type="submit" class="btn btn-primary">Add Ticket</button>
+    </div>
 </form>
 
 @section Scripts {

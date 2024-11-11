@@ -54,5 +54,7 @@ namespace Model.Entities
         public ICollection<Ticket> Tickets { get; set; }
         public ICollection<Address> Addresses { get; set; }
 
+        //public int BlobId { get; set; }
+        //public Blob Blob { get; set; }
     }
 }

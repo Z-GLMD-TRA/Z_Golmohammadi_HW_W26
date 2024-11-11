@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObject.DTOClasses;
+﻿using DataTransferObject.DTOClasses;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +11,7 @@ namespace Service.ServiceClasses
     public class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;
+        //private readonly SignInManager<User> _signInManager;
 
         public UserService(UserManager<User> userManager)
         {

@@ -19,11 +19,8 @@ namespace Infrastructure.TablesConfig
 
             builder.ToTable(nameof(Ticket));
 
-            builder.HasOne(x => x.User).WithMany(x => x.Tickets).HasForeignKey(x => x.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.Category).WithMany(x => x.Tickets).HasForeignKey(x => x.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.Property(x => x.UserId).IsRequired();
             builder.Property(x => x.BuyDate).IsRequired().HasDefaultValue(DateTime.UtcNow);
             builder.Property(x => x.TicketNumber).IsRequired().HasMaxLength(5).HasDefaultValue(Ticket.NewTicketNumber());
             base.Configure(builder);

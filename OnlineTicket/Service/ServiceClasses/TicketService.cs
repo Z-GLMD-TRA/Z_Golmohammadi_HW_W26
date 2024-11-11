@@ -32,6 +32,7 @@ namespace Service.ServiceClasses
         public async Task<bool> CreateTicket(TicketDTO ticketDTO)
         {
             var entity = TranslateToEntity(ticketDTO);
+            //entity.Id = new Guid();
             var result = await _repository.CreateDataAsync(entity);
 
             return result != null;
@@ -41,8 +42,8 @@ namespace Service.ServiceClasses
         public async Task<List<TicketDTO>> GetAllTickets()
         {
             var tickets = await _repository.GetAllAsync();
-            var ticketsDTO = tickets.ProjectToType<TicketDTO>().ToList();
-            return ticketsDTO;
+            var ticketDTOs = tickets.ProjectToType<TicketDTO>().ToList();
+            return ticketDTOs;
         }
     }
 }

@@ -24,6 +24,12 @@ namespace Service
                 .Map(x => x.Name, y => y.CategoryName);
             TypeAdapterConfig<CategoryDTO, Category>.NewConfig()
                 .Map(x => x.CategoryName, y => y.Name);
+
+
+            //TypeAdapterConfig<Ticket, TicketDTO>.NewConfig()
+            //    .Map(x => x.Name, y => y.CategoryName);
+            TypeAdapterConfig<TicketDTO, Ticket>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id == null || src.Id == Guid.Empty ? Guid.NewGuid() : src.Id);
         }
     }
 }

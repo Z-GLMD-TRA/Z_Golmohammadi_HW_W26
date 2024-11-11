@@ -11,8 +11,6 @@ namespace Infrastructure
 
         public OnlineTicketDbContext(DbContextOptions<OnlineTicketDbContext> dbContext) : base(dbContext) { }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Province> Provinces { get; set; }

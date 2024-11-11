@@ -6,19 +6,16 @@ namespace Model.Entities
         public string OriginName { get; set; }
         public string DestinationName { get; set; }
         public string TicketNumber { get; set; }
+        public int TicketCount{ get; set; }
         public DateTime BuyDate { get; set; }
-        public User User { get; set; }
-        public Guid UserId { get; set; }
-        public int SeatNumber { get; set; }
 
+        //public User User { get; set; }
+        //public Guid UserId { get; set; }
         public Category Category { get; set; }
         public int CategoryId { get; set; }
 
         public DateTime DepartureDate { get; set; }
-        public DateTime? ReturnDate { get; set; }
         public decimal Price { get; set; }
-        public string PassengerName { get; set; }
-
         public static string NewTicketNumber()
         {
             var random = new Random();

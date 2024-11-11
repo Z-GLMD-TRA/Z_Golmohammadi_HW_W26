@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineTicketDbContext))]
-    partial class OnlineTicketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241101111054_updateTicketDTO")]
+    partial class updateTicketDTO
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,7 +311,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("BuyDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 8, 11, 33, 44, 937, DateTimeKind.Utc).AddTicks(4028));
+                        .HasDefaultValue(new DateTime(2024, 11, 1, 11, 10, 50, 680, DateTimeKind.Utc).AddTicks(7228));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -339,17 +342,18 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("TicketCount")
-                        .HasColumnType("int");
+                    b.Property<string>("TicketCount")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TicketNumber")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)")
-                        .HasDefaultValue("40512");
+                        .HasDefaultValue("90642");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -619,15 +623,19 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Model.Entities.User", null)
+                    b.HasOne("Model.Entities.User", "User")
                         .WithMany("Tickets")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
                     b.Navigation("Creator");
 
                     b.Navigation("Editor");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Model.Entities.User", b =>
